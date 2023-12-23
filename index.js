@@ -20,14 +20,16 @@ app.get("/", (req, res) => {
   res.send("hello");
 });
 
-
 app.post("/api/login", async (req, res) => {
-  const {username, password} = req.body;
-  const findUser = await User.findOne({username: username, password: password});
-  if(findUser){
-    res.json(findUser)
-  }else{
-    console.log('no data found');
+  const { username, password } = req.body;
+  const findUser = await User.findOne({
+    username: username,
+    password: password,
+  });
+  if (findUser) {
+    res.json(findUser);
+  } else {
+    console.log("no data found");
   }
 });
 
