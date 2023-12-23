@@ -20,13 +20,24 @@ app.get("/", (req, res) => {
   res.send("hello");
 });
 
-app.get('/api/login', (req, res) => {
-    const findUser = User.findOne() 
-})
+
+app.post("/api/login", async (req, res) => {
+  const {username, password} = req.body;
+  const findUser = await User.findOne({username: username, password: password});
+  if(findUser){
+    res.json(findUser)
+  }else{
+    console.log('no data found');
+  }
+});
 
 app.post("/api/register", async (req, res) => {
-  const {username, email, password} = req.body;
-  const newUser = new User({ username: username, email: email, password: password });
+  const { username, email, password } = req.body;
+  const newUser = new User({
+    username: username,
+    email: email,
+    password: password,
+  });
   await newUser.save();
   return res.json({ status: "ok" });
 });
